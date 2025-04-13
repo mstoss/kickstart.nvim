@@ -676,6 +676,7 @@ require('lazy').setup({
         volar = {},
         tailwindcss = {},
         bashls = {},
+        ts_ls = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -686,7 +687,6 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        -- ts_ls = {},
         --
 
         lua_ls = {
@@ -732,6 +732,7 @@ require('lazy').setup({
         'volar',
         'tailwindcss',
         'bashls',
+        'ts_ls',
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
