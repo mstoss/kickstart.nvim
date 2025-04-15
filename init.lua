@@ -170,6 +170,14 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+--keybind for quickfix
+-- SHORTCUT: pour ouvrir quickfix: C-q quand on est dans telescope
+vim.keymap.set('n', '<M-j>', '<cmd>cnext<CR>', { desc = 'Next diagnostic' })
+vim.keymap.set('n', '<M-k>', '<cmd>cprevious<CR>', { desc = 'Previous Diagnostic' })
+vim.keymap.set('n', '<M-q>', '<cmd>cclose<CR>', { desc = 'Close diagnostic' })
+vim.keymap.set('n', '<space><space>x', '<cmd>source %<CR>', { desc = 'e[X]ecute lua buffer' })
+vim.keymap.set('n', '<space>x', ':.lua<CR>', { desc = 'e[X]ecute lua line' })
+vim.keymap.set('v', '<space>x', ':.lua<CR>', { desc = 'e[X]ecute lua visual selection' })
 
 -- Kill buffer keymap
 vim.keymap.set('n', '<leader>D', '<cmd>Bdelete<cr>', { desc = 'Kill Buffer' })
