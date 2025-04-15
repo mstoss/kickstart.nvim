@@ -748,6 +748,21 @@ require('lazy').setup({
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
+
+          -- volar typescript specific configuration
+          ['volar'] = function()
+            require('lspconfig').volar.setup {
+              filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
+              init_options = {
+                vue = {
+                  hybridMode = false,
+                },
+                typescript = {
+                  tsdk = vim.fn.getcwd() .. '/node_modules/typescript/lib',
+                },
+              },
+            }
+          end,
         },
       }
     end,
