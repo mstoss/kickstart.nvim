@@ -180,7 +180,10 @@ vim.keymap.set('n', '<space>x', ':.lua<CR>', { desc = 'e[X]ecute lua line' })
 vim.keymap.set('v', '<space>x', ':.lua<CR>', { desc = 'e[X]ecute lua visual selection' })
 
 -- Kill buffer keymap
-vim.keymap.set('n', '<leader>D', '<cmd>Bdelete<cr>', { desc = 'Kill Buffer' })
+vim.keymap.set('n', '<leader>D', '<cmd>bdelete<CR>', { desc = 'Kill Buffer' })
+vim.keymap.set('n', '<leader>q', vim.cmd.quit, { desc = 'Close my window' }) -- kill my window
+vim.keymap.set('n', '<S-l>', ':bnext<CR>', { desc = 'Go to next buffer' }) --  got to next buffer
+vim.keymap.set('n', '<S-h>', ':bprevious<CR>', { desc = 'Go to previous buffer' }) -- go to previous buffer
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -962,6 +965,8 @@ require('lazy').setup({
       -- - sr)'  - [S]urround [R]eplace [)] [']
       require('mini.surround').setup()
 
+      require('mini.tabline').setup()
+
       -- Simple and easy statusline.
       --  You could remove this setup call if you don't like it,
       --  and try some other statusline plugin
@@ -1032,11 +1037,11 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
-  -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
