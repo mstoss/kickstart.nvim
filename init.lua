@@ -935,6 +935,10 @@ require('lazy').setup({
         styles = {
           comments = { italic = false }, -- Disable italics in comments
         },
+
+        on_colors = function(colors)
+          colors.bg_visual = colors.blue0
+        end,
       }
 
       -- Load the colorscheme here.
