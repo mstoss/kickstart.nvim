@@ -183,7 +183,7 @@ vim.keymap.set('n', '<space>x', ':.lua<CR>', { desc = 'e[X]ecute lua line' })
 vim.keymap.set('v', '<space>x', ':.lua<CR>', { desc = 'e[X]ecute lua visual selection' })
 
 -- Kill buffer keymap
-vim.keymap.set('n', '<leader>D', '<cmd>bdelete<CR>', { desc = 'Kill Buffer' })
+vim.keymap.set('n', '<leader>"', '<cmd>bdelete<CR>', { desc = 'Kill Buffer' })
 vim.keymap.set('n', '<leader>q', vim.cmd.quit, { desc = 'Close my window' }) -- kill my window
 vim.keymap.set('n', '<S-l>', ':bnext<CR>', { desc = 'Go to next buffer' }) --  got to next buffer
 vim.keymap.set('n', '<S-h>', ':bprevious<CR>', { desc = 'Go to previous buffer' }) -- go to previous buffer
@@ -444,7 +444,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
       vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
       vim.keymap.set('n', '<leader>fé', builtin.registers, { desc = '[F]ind [R]egisters' })
-      vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+      vim.keymap.set('n', '<leader>f;', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader>p', '<cmd>NeovimProjectDiscover<CR>', { desc = '[P]rojects discover' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
