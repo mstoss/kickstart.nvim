@@ -167,6 +167,10 @@ vim.opt.colorcolumn = '80'
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- go to next and previous function
+-- vim.keymap.set('n', '<leader>>', ']m', { desc = 'Go to next function' })
+-- vim.keymap.set('n', '<leader>>', '[m', { desc = 'Go to previous function' })
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -573,6 +577,11 @@ require('lazy').setup({
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
           map('gO', require('telescope.builtin').lsp_document_symbols, 'Open Document Symbols')
+
+          -- I need to find quickly the functions
+          map('go', function()
+            require('telescope.builtin').lsp_document_symbols { symbols = 'function' }
+          end, 'Browse function')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
