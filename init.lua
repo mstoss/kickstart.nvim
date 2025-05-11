@@ -84,6 +84,8 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+-- debug
+vim.lsp.set_log_level 'debug'
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -690,6 +692,11 @@ require('lazy').setup({
       --  - capabilities (table): Override fields in capabilities. Can be used to disable certain LSP features.
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
+      local mason_path = vim.fn.stdpath 'data' .. '/mason'
+      print('Mason est installé ici : ' .. mason_path)
+      local ts_ls_path = vim.fn.expand(mason_path) .. '/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
+      print('ts_ls est installé ici : ' .. ts_ls_path)
+
       local servers = {
         stylua = {}, -- Used to format Lua code
         dockerls = {},
@@ -700,10 +707,34 @@ require('lazy').setup({
         twiggy_language_server = {},
         vimls = {},
         pylsp = {},
-        volar = {},
+        ts_ls = {
+          init_options = {
+            plugins = {
+              {
+                name = '@vue/typescript-plugin',
+                location = ts_ls_path,
+                languages = { 'javascript', 'typescript', 'vue' },
+              },
+            },
+          },
+          filetypes = {
+            'javascript',
+            'typescript',
+            'vue',
+          },
+        },
+        volar = {
+          vue = { hybridMode = false },
+          init_options = {
+            typescript = {
+              --     tsdk = ts_ls_path,
+              tsdk = vim.fn.stdpath 'data' .. '/mason/packages/typescript-language-server/node_modules/typescript/lib',
+            },
+          },
+          filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
+        },
         tailwindcss = {},
         bashls = {},
-        ts_ls = {},
         -- clangd = {},
         -- gopls = {},
         -- pyright = {},
@@ -761,9 +792,9 @@ require('lazy').setup({
         'bashls',
         'ts_ls',
       })
-      require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-
       require('mason-lspconfig').setup {
+        -- local ts_plugin_path = mason_registry.get_package('vue-language-server'):get_install_path()
+        --   .. '/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin'
         ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
         automatic_installation = false,
         handlers = {
@@ -777,35 +808,30 @@ require('lazy').setup({
           end,
 
           -- volar typescript specific configuration
-          ['volar'] = function()
-            require('lspconfig').volar.setup {
-              filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
-              init_options = {
-                vue = {
-                  hybridMode = true,
-                },
-                typescript = {
-                  tsdk = vim.fn.getcwd() .. '/node_modules/typescript/lib',
-                },
-              },
-            }
-          end,
-          ['ts_ls'] = function()
-            require('lspconfig').ts_ls.setup {
-              on_attach = on_attach,
-              capabilities = capabilities,
-              init_options = {
-                plugins = { -- I think this was my breakthrough that made it work
-                  {
-                    name = '@vue/typescript-plugin',
-                    -- location = '/node_modules/typescript/lib',
-                    languages = { 'vue' },
-                  },
-                },
-              },
-              filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
-            }
-          end,
+          -- ['volar'] = function()
+          --   require('lspconfig').volar.setup {
+          --     filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
+          --     init_options = {
+          --       vue = {
+          --         hybridMode = true,
+          --       },
+          --       typescript = {
+          --         tsdk = vim.fn.getcwd() .. '/node_modules/typescript/lib',
+          --       },
+          --     },
+          --   }
+          -- end,
+          -- ['ts_ls'] = function()
+          --   require('lspconfig').ts_ls.setup {
+          --     plugins = { -- I think this was my breakthrough that made it work
+          --       {
+          --         name = '@vue/typescript-plugin',
+          --         location = ts_ls_path,
+          --         languages = { 'vue' },
+          --       },
+          --     },
+          --   }
+          -- end,
         },
       }
     end,
