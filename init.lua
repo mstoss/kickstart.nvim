@@ -782,12 +782,28 @@ require('lazy').setup({
               filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
               init_options = {
                 vue = {
-                  hybridMode = false,
+                  hybridMode = true,
                 },
                 typescript = {
                   tsdk = vim.fn.getcwd() .. '/node_modules/typescript/lib',
                 },
               },
+            }
+          end,
+          ['ts_ls'] = function()
+            require('lspconfig').ts_ls.setup {
+              on_attach = on_attach,
+              capabilities = capabilities,
+              init_options = {
+                plugins = { -- I think this was my breakthrough that made it work
+                  {
+                    name = '@vue/typescript-plugin',
+                    -- location = '/node_modules/typescript/lib',
+                    languages = { 'vue' },
+                  },
+                },
+              },
+              filetypes = { 'vue', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' },
             }
           end,
         },
@@ -960,7 +976,7 @@ require('lazy').setup({
       -- the rust implementation via `'prefer_rust_with_warning'`
       --
       -- See :h blink-cmp-config-fuzzy for more information
-      fuzzy = { implementation = 'lua' },
+      fuzzy = { implementation = 'prefer_rust_with_warning' },
 
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
